@@ -10,7 +10,7 @@ class SudokuGame
   end
 
   def initialize(board)
-    @board = [[]]
+    @board = board
   end
 
   def method_missing(method_name, *args)
@@ -41,6 +41,10 @@ class SudokuGame
     pos
   end
 
+  def parse_pos(string)
+    string.split(",").map{|el| Integer(el)}
+  end
+
   def get_val
     val = nil
     until val && valid_val?(val)
@@ -51,6 +55,10 @@ class SudokuGame
     val
   end
 
+  def parse_val(string)
+    Integer(string)
+  end
+  
   def play_turn
     board.render
     pos = get_pos
@@ -85,3 +93,4 @@ end
 
 
 game = SudokuGame.from_file("puzzles/sudoku1.txt")
+game.run
